@@ -1,9 +1,10 @@
-project_name = "Actividad-2"
+//folder_name = "Act-2"
+project_name = "Act-2/Actividad-2"
 url_repo = "git@github.com:Guarambo/seed-job-dsl.git"
 repo_name = "seed-job"
 
 
-folder('Actividad-2') {
+folder('Act-2') {
     displayName('Actividad 2')
     description('Actividad con WAS')
 }
