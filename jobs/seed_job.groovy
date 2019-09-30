@@ -8,7 +8,7 @@ folder('Actividad-2') {
     description('Actividad con WAS')
 }
 
-pipelineJob(project_name) {
+pipelineJob(Actividad-2/project_name) {
     definition {
         triggers {
             scm('H/1 * * * *')
