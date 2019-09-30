@@ -26,6 +26,21 @@ pipelineJob(project_name) {
                 scriptPath("Jenkinsfile")
             }
         }
+
+        cps {
+            script {
+                pipeline {
+                    agent any
+                    stages {
+                        stage("imprimir"){
+                            steps {
+                                sh 'echo hola mundo'
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
