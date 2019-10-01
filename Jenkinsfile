@@ -21,16 +21,18 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 } 
             }*/
-        parallel firstBranch: {
-            stage("Scan"){
-                sh 'mvn sonar:sonar'
+            steps {
+                parallel firstBranch: {
+                    stage("Scan"){
+                        sh 'mvn sonar:sonar'
+                    }
+                }, secondBranch: {
+                    stage("Build"){
+                        sh 'mvn clean install'
+                    }
+                },
+                failFast: true|false 
             }
-        }, secondBranch: {
-            stage("Build"){
-                sh 'mvn clean install'
-            }
-        },
-        failFast: true|false 
         }
     }
 }
