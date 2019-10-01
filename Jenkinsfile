@@ -12,13 +12,14 @@ pipeline {
             }
 
             steps {
-                withSonarQubeEnv('sonarqube') {
+                sh 'mvn sonar:sonar'
+/*                 withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     //Sirve para detener la ejecucion si no es Success
                     waitForQualityGate abortPipeline: true
-                }
+                } */
             }
         }
     }
