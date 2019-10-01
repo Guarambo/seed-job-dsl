@@ -10,13 +10,6 @@ pipeline {
             environment {
                 scannerHome = tool 'sonar_scanner'
             }
-
-            parallel scan: {
-                sh 'mvn sonar:sonar'
-            }, build: {
-                sh 'mvn clean install'
-            },
-            failFast: true|false
 /*             steps {
                 //sh 'mvn clean install sonar:sonar'
                 withSonarQubeEnv('sonarqube') {
@@ -29,5 +22,15 @@ pipeline {
                 } 
             } */
         }
+        parallel firstBranch: {
+            stage("Scan"){
+                sh 'mvn sonar:sonar'
+            }
+        }, secondBranch: {
+            stage("Build"){
+                sh 'mvn clean install'
+            }
+        },
+        failFast: true|false
     }
 }
