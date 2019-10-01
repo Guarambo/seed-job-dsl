@@ -6,20 +6,21 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://gitlab.com/codilabs/Ear-Test.git']]])
             }
         }
-        stage("Sonnar"){
+        stage("Scan & Build"){
             environment {
                 scannerHome = tool 'sonar_scanner'
             }
 
             steps {
-                sh 'mvn sonar:sonar'
+                sh 'mvn clean build sonar:sonar'
 /*                 withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
+                */
                 timeout(time: 10, unit: 'MINUTES') {
                     //Sirve para detener la ejecucion si no es Success
                     waitForQualityGate abortPipeline: true
-                } */
+                } 
             }
         }
     }
