@@ -7,10 +7,10 @@ pipeline {
             }
         }
         stage("Scan & Build"){
-            environment {
+/*            environment {
                 scannerHome = tool 'sonar_scanner'
             }
-/*             steps {
+             steps {
                 //sh 'mvn clean install sonar:sonar'
                 withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner"
@@ -21,7 +21,6 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 } 
             }*/
-            
         parallel firstBranch: {
             stage("Scan"){
                 sh 'mvn sonar:sonar'
