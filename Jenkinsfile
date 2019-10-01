@@ -11,17 +11,22 @@ pipeline {
                 scannerHome = tool 'sonar_scanner'
             }
 
-            steps {
-                sh 'mvn clean install sonar:sonar'
-/*                 withSonarQubeEnv('sonarqube') {
+            parallel scan: {
+                sh 'mvn sonar:sonar'
+            }, build: {
+                sh 'mvn clean install'
+            }
+/*             steps {
+                //sh 'mvn clean install sonar:sonar'
+                withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
-                */
+                
                 timeout(time: 10, unit: 'MINUTES') {
                     //Sirve para detener la ejecucion si no es Success
                     waitForQualityGate abortPipeline: true
                 } 
-            }
+            } */
         }
     }
 }
