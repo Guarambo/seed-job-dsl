@@ -22,14 +22,10 @@ pipeline {
                 } 
             }*/
             steps {
-                parallel firstBranch: {
-                    stage("Scan"){
-                        sh 'mvn sonar:sonar'
-                    }
-                }, secondBranch: {
-                    stage("Build"){
-                        sh 'mvn clean install'
-                    }
+                parallel "Scan": {
+                    sh 'mvn sonar:sonar'
+                }, "Build": {
+                    sh 'mvn clean install'
                 },
                 failFast: true|false 
             }
