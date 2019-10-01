@@ -27,7 +27,7 @@ pipeline {
                 }, "Build": {
                     sh 'mvn clean install'
                 },
-                failFast: true|false 
+                failFast: true 
             }
         }
     }
