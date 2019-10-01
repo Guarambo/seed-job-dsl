@@ -15,7 +15,8 @@ pipeline {
                 sh 'mvn sonar:sonar'
             }, build: {
                 sh 'mvn clean install'
-            }
+            },
+            failFast: true|false
 /*             steps {
                 //sh 'mvn clean install sonar:sonar'
                 withSonarQubeEnv('sonarqube') {
