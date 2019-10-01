@@ -9,25 +9,23 @@ pipeline {
         stage("Scan & Build"){
             environment {
                 scannerHome = tool 'sonar_scanner'
-                /*#Required Metadata
-                sonar.projectKey=actividad:1
-                sonar.projectName=act-1
-                sonar.projectVersion=1.0
-
-                #Path to Source Directory
-                sonar.sources= ${WORKSPACE} */
             }
              steps {
-                //sh 'mvn clean install sonar:sonar'
-                withSonarQubeEnv('sonarqube') {
-                    //sh "${scannerHome}/bin/sonar-scanner"
-                    sh "mvn sonar:sonar"
-                }
-                
-                timeout(time: 10, unit: 'MINUTES') {
-                    //Sirve para detener la ejecucion si no es Success
-                    waitForQualityGate abortPipeline: true
-                } 
+                 parallel "Scan": {
+                    //sh 'mvn clean install sonar:sonar'
+                    withSonarQubeEnv('sonarqube') {
+                        //sh "${scannerHome}/bin/sonar-scanner"
+                        sh "mvn sonar:sonar"
+                        
+                    }
+                    timeout(time: 10, unit: 'MINUTES') {
+                        //Sirve para detener la ejecucion si no es Success
+                        waitForQualityGate abortPipeline: true
+                    } 
+                 }, "Build": {
+                    sh 'mvn clean install'
+                 },
+                 failFast: true
             }
 
             /*steps {
@@ -36,7 +34,7 @@ pipeline {
                 }, "Build": {
                     sh 'mvn clean install'
                 },
-                failFast: true 
+                failFast: true
             }*/
         }
     }
