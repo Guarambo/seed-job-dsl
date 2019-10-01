@@ -12,7 +12,7 @@ pipeline {
             }
 
             steps {
-                sh 'mvn clean build sonar:sonar'
+                sh 'mvn clean install sonar:sonar'
 /*                 withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
