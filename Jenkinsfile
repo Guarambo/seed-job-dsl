@@ -41,6 +41,9 @@ pipeline {
             steps{
                 //sh 'ssh root@172.18.0.5 pwd'
                 sh 'scp -r testEAR root@172.18.0.5:/usr/share/compiled-app/'
+
+                /*deploy.jython = Script para ejecutar una aplicacion*/
+                sh 'ssh root@172.18.0.5  wsadmin.sh -f deploy.jython -lang python'
             }
         }
     }
