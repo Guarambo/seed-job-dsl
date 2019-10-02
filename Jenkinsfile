@@ -39,10 +39,8 @@ pipeline {
         }
         stage("Deploy"){
             steps{
-                sh 'ls -a'
-                sh 'pwd'
                 //sh 'ssh root@172.18.0.5 pwd'
-                //sh 'scp -r dist/angularTestJenkins/* root@172.18.0.4:/usr/share/compiled-app/'
+                sh 'scp -r testEAR root@172.18.0.5:/usr/share/compiled-app/'
             }
         }
     }
