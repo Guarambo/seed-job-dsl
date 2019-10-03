@@ -43,7 +43,7 @@ pipeline {
                 sh 'scp -r testEAR root@172.18.0.5:/usr/share/compiled-app/'
 
                 /*deploy.jython = Script para ejecutar una aplicacion*/
-                sh 'ssh root@172.18.0.5  /opt/IBM/WebSphere/AppServer/bin/wsadmin.sh -f /usr/share/compiled-app/deploy.jython -lang jython -conntype SOAP -user wsadmin -password R4QrGxtf'
+                sh 'ssh root@172.18.0.5  /opt/IBM/WebSphere/AppServer/bin/wsadmin.sh -f /usr/share/compiled-app/deploy.jython -lang jython -conntype SOAP -host localhost -user wsadmin -password R4QrGxtf'
             }
         }
     }
