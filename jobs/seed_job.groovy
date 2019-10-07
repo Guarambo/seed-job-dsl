@@ -1,11 +1,11 @@
-//folder_name = "Act-2"
-project_name = "Act-2/Actividad-2"
+folder_name = "Act-2"
+project_name = "${folder_name}/Actividad-2"
 project_name_java = "practica-java-devops/prueba"
 url_repo = "git@github.com:Guarambo/seed-job-dsl.git"
 repo_name = "seed-job"
 
 
-folder('Act-2') {
+folder(folder_name) {
     displayName('Actividad 2')
     description('Actividad con WAS')
 }
