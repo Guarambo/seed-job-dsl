@@ -6,7 +6,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@git.pragma.com.co:DevOps/practica-java-devops.git']]])
             }
         }
-        stage("scan"){
+/*         stage("scan"){
             environment {
                 scannerHome = tool 'sonar_scanner'
             }
@@ -27,6 +27,6 @@ pipeline {
             steps{
                 sh 'mvn clean install'
             }
-        }
+        } */
     }
 }
