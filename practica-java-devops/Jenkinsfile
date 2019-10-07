@@ -6,12 +6,12 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@git.pragma.com.co:DevOps/practica-java-devops.git']]])
             }
         }
-/*         stage("scan"){
+        stage("scan"){
             environment {
                 scannerHome = tool 'sonar_scanner'
             }
              steps {
-                    //sh 'mvn clean install sonar:sonar'
+/*                     //sh 'mvn clean install sonar:sonar'
                     withSonarQubeEnv('sonarqube') {
                         //sh "${scannerHome}/bin/sonar-scanner"
                         sh "mvn -f /practica-devops/ sonar:sonar"
@@ -20,10 +20,11 @@ pipeline {
                     timeout(time: 10, unit: 'MINUTES') {
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: true
-                    }
+                    } */
+                    sh 'ls -a'
             }
         }
-        stage("build"){
+/*         stage("build"){
             steps{
                 sh 'mvn clean install'
             }
