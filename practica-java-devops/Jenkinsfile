@@ -21,7 +21,7 @@ pipeline {
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: true
                     } */
-                    sh 'ls -a'
+                    sh 'ls practica-devops/'
             }
         }
 /*         stage("build"){
