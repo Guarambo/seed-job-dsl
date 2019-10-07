@@ -14,7 +14,7 @@ pipeline {
                     //sh 'mvn clean install sonar:sonar'
                     withSonarQubeEnv('sonarqube') {
                         //sh "${scannerHome}/bin/sonar-scanner"
-                        sh "mvn -f practica-devops/ sonar:sonar"
+                        sh "mvn -f practica-devops/ org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar"
                         
                     }
                     timeout(time: 10, unit: 'MINUTES') {
