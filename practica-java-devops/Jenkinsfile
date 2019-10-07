@@ -6,6 +6,11 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@git.pragma.com.co:DevOps/practica-java-devops.git']]])
             }
         }
+        stage("build"){
+            steps{
+                sh 'mvn -f practica-devops/ clean deploy'
+            }
+        }
         stage("scan"){
             environment {
                 scannerHome = tool 'sonar_scanner'
@@ -21,11 +26,6 @@ pipeline {
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: true
                     }
-            }
-        }
-        stage("build"){
-            steps{
-                sh 'mvn -f practica-devops/ clean install'
             }
         }
     }
