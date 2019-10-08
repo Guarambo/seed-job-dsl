@@ -23,7 +23,8 @@ pipeline {
                         -Dsonar.projectKey=practicaJava:Test 
                         -Dsonar.projectName=practicaJava 
                         -Dsonar.projectVersion=0.1 
-                        -Dsonar.java.binaries=**/target/"
+                        -Dsonar.sources=${WORKSPACE}
+                        -Dsonar.java.binaries=/practica-devops/target/"
                         //sh "mvn -f practica-devops/ sonar:sonar"
                         
                     }
