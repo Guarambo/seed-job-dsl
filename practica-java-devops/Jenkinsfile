@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        PROJECT_ROOT = "practica-devops/"
+    }
     stages {
         stage("checkout"){
             steps {
@@ -9,7 +12,7 @@ pipeline {
         stage("build"){
             steps{
                 // -DskipTests es para no ejecutar pruebas unitarias
-                sh 'mvn -f practica-devops/ clean install -DskipTests'
+                sh "mvn -f ${PROJECT_ROOT} clean install -DskipTests"
             }
         }
         stage("scan"){
@@ -19,7 +22,12 @@ pipeline {
              steps {
                     //sh 'mvn clean install sonar:sonar'
                     withSonarQubeEnv('sonarqube') {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=practicaJava:Test -Dsonar.projectName=practicaJava -Dsonar.projectVersion=0.1 -Dsonar.sources=practica-devops/src -Dsonar.java.binaries=practica-devops/target/"
+                        sh "${scannerHome}/bin/sonar-scanner 
+                        -Dsonar.projectKey=practicaJava:Test 
+                        -Dsonar.projectName=practicaJava 
+                        -Dsonar.projectVersion=0.1 
+                        -Dsonar.sources=practica-devops/src 
+                        -Dsonar.java.binaries=./practica-devops/target/"
                         //sh "mvn -f practica-devops/ sonar:sonar"
                         
                     }
