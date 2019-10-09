@@ -33,12 +33,14 @@ pipeline {
                     }
                     timeout(time: 10, unit: 'MINUTES') {
                         //Sirve para detener la ejecucion si no es Success
-                        if(waitForQualityGate != 'OK'){
-                            sh "echo Hola mundo"
+                        when {
+                            expression { waitForQualityGate != 'OK'}
                         }
-                        waitForQualityGate abortPipeline: false
-                        emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
-                        error "La Cobertura del escaneo es menor a 70%"
+                        steps {
+                            waitForQualityGate abortPipeline: false
+                            emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
+                            error "La Cobertura del escaneo es menor a 70%"
+                        }
                     }
             }
         }
