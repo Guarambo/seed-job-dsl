@@ -18,6 +18,7 @@ pipeline {
         stage("scan"){
             environment {
                 scannerHome = tool 'sonar_scanner'
+                qg = waitForQualityGate();
             }
              steps {
                     //sh 'mvn clean install sonar:sonar'
@@ -32,7 +33,7 @@ pipeline {
                         
                     }
                     timeout(time: 10, unit: 'MINUTES') {
-                            emailext body: "la Cobertura del escaneo es menor a %", subject: "Error Sonar Scan, Quality Gate =", to: 'santiago.montoya@pragma.com.co'                        
+                            emailext body: "la Cobertura del escaneo es menor a %", subject: "Error Sonar Scan, Quality Gate = ${qg}", to: 'santiago.montoya@pragma.com.co'                        
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: true
                     }
