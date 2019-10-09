@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PROJECT_ROOT = "practica-devops/"
-        EMAIL_ADDRESS = "andres.rios@pragma.com.co"
+        EMAIL_ADDRESS = "santiago.montoya@pragma.com.co"
     }
     stages {
         stage("checkout"){
