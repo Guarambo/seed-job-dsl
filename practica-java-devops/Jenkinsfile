@@ -32,7 +32,7 @@ pipeline {
                         
                     }
                     timeout(time: 10, unit: 'MINUTES') {
-                        emailext body: 'Body', subject: 'Error Pipeline', to: 'santiago.montoya@pragma.com.com'
+                        emailext body: 'Body', subject: 'Error Pipeline', to: 'santiago.montoya@pragma.com.co'
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: true
                     }
