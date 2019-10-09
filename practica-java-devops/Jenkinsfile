@@ -33,13 +33,10 @@ pipeline {
                     }
                     timeout(time: 10, unit: 'MINUTES') {
                         def qg = waitForQualityGate()
-                        if(qg.status != 'OK') {
                             error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                            emailext body: "la Cobertura del escaneo es menor a ${qp.coverage}", subject: "Error Sonar Scan, Quality Gate = ${qg.status}", to: 'santiago.montoya@pragma.com.co'
-                        }
-                        
+                            emailext body: "la Cobertura del escaneo es menor a ${qp.coverage}", subject: "Error Sonar Scan, Quality Gate = ${qg.status}", to: 'santiago.montoya@pragma.com.co'                        
                         //Sirve para detener la ejecucion si no es Success
-                        //waitForQualityGate abortPipeline: true
+                        waitForQualityGate abortPipeline: true
                     }
             }
         }
