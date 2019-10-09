@@ -32,7 +32,6 @@ pipeline {
                         
                     }
                     timeout(time: 10, unit: 'MINUTES') {
-                            error 'Pipeline aborted due to quality gate failure'
                             emailext body: "la Cobertura del escaneo es menor a %", subject: "Error Sonar Scan, Quality Gate =", to: 'santiago.montoya@pragma.com.co'                        
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: true
