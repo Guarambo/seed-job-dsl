@@ -31,10 +31,10 @@ pipeline {
                         //sh "mvn -f practica-devops/ sonar:sonar"
                         
                     }
+                    timeout(time: 10, unit: 'MINUTES') {
                     environment{
                         qg = waitForQualityGate();
                     }
-                    timeout(time: 10, unit: 'MINUTES') {
                             emailext body: "la Cobertura del escaneo es menor a %", subject: "Error Sonar Scan, Quality Gate = ${qg}", to: 'santiago.montoya@pragma.com.co'                        
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: true
