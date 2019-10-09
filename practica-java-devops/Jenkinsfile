@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         PROJECT_ROOT = "practica-devops/"
+        EMAIL_ADDRESS = "santiago.montoya@pragma.com.co"
     }
     stages {
         stage("checkout"){
@@ -34,17 +35,16 @@ pipeline {
                     timeout(time: 10, unit: 'MINUTES') {
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
-                        //emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
-                        //error "La Cobertura del escaneo es menor a 70%"
                     }
             }
         }
     }
 }
 
+//Metodo para validar el qualityGate y enviar un correo si el QualityGate es menor a 70%
 def qualityGateValidation(qg) {
     if(qg.status != 'OK') {
-        emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
+        emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: "${EMAIL_ADDRESS}"
         return true
     }else {
         return false
