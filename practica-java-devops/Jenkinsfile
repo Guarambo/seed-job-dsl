@@ -33,7 +33,7 @@ pipeline {
                     }
                     timeout(time: 10, unit: 'MINUTES') {
                         //Sirve para detener la ejecucion si no es Success
-                        waitForQualityGate abortPipeline: true //qualityGateValidation(waitForQualityGate)
+                        waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate)
                         //emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
                         //error "La Cobertura del escaneo es menor a 70%"
                         qualityGateValidation()
@@ -47,5 +47,7 @@ def qualityGateValidation(qg) {
     if(qg != 'OK') {
         emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
         return true
+    }else {
+        return false
     }
 }
