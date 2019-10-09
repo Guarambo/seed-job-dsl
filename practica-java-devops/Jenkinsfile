@@ -33,16 +33,19 @@ pipeline {
                     }
                     timeout(time: 10, unit: 'MINUTES') {
                         //Sirve para detener la ejecucion si no es Success
-                        when {
-                            expression { waitForQualityGate != 'OK'}
-                        }
-                        steps {
-                            waitForQualityGate abortPipeline: false
-                            emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
-                            error "La Cobertura del escaneo es menor a 70%"
-                        }
+                        //waitForQualityGate abortPipeline: false
+                        //emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
+                        //error "La Cobertura del escaneo es menor a 70%"
+                        qualityGateValidation()
                     }
             }
         }
+    }
+}
+
+def qualityGateValidation() {
+    if(waitForQualityGate != 'OK') {
+        emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
+        waitForQualityGate abortPipeline: true
     }
 }
