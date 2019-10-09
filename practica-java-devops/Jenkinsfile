@@ -31,11 +31,6 @@ pipeline {
                         //sh "mvn -f practica-devops/ sonar:sonar"
                         
                     }
-
-                    def quality = waitForQualityGate()
-                    if(quality.status != 'OK') {
-                        sh "echo hola mundo"
-                    }
 /*                     timeout(time: 10, unit: 'MINUTES') {
                         //Sirve para detener la ejecucion si no es Success
                         waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate)
@@ -45,11 +40,19 @@ pipeline {
                     } */
             }
         }
+        stage("quality gate") {
+            environment {
+                qg = waitForQualityGate()
+            }
+            steps {
+                qualityGateValidation(gp)
+            }
+        }
     }
 }
 
 def qualityGateValidation(qg) {
-    if(qg != 'OK') {
+    if(qg.status != 'OK') {
         emailext body: "La Cobertura del escaneo es menor a 70%", subject: "Error Sonar Scan, Quality Gate", to: 'santiago.montoya@pragma.com.co'
         return true
     }else {
