@@ -15,6 +15,11 @@ folder('practica-java-devops') {
     description('prueba de Jenkinsfile')
 }
 
+folder('proyecto-checho') {
+    displayName('checho haciendo daños')
+    description('prueba de Jenkinsfile de checho')
+}
+
 pipelineJob(project_name) {
     definition {
         triggers {
