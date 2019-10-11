@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    environment {
+        AWS_CREDENTIALS_ID = "aws-pragma-reserva"
+        AWS_ACCESS_KEY_ID = "${AWS_ACCESS_KEY_ID}"
+        AWS_SECRET_ACCESS_KEY = "${AWS_SECRET_ACCESS_KEY}"
+        AWS_DEFAULT_REGION = "us-east-1"
+        LAYER_NAME='sharedlib'
+        ARN=""
+    }
+    stages {
+        stage('Obtain layer version') {
+            steps {
+                script {
+                    def ARN = sh "aws lambda list-layer-versions --layer-name ${LAYER_NAME} --region ${AWS_DEFAULT_REGION} --query 'LayerVersions[0].LayerVersionArn'"
+                    ARN = ${ARN}.trim().replaceAll('"', '')
+                    if (${ARN} == null) {
+                        error "No se pudo obtener el ARN del layer ${LAYER_NAME}"
+                    }
+                }
+            }
+        }
+    }
+}
