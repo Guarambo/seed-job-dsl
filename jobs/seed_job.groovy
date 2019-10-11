@@ -55,3 +55,23 @@ pipelineJob(project_name_java) {
     }
 }
 
+pipelineJob("proyecto-checho/test-1") {
+    definition {
+        triggers {
+            scm('H/1 * * * *')
+        }
+
+        cpsScm{
+            scm {
+                git {
+                    remote {
+                        name(repo_name)
+                        url(url_repo)
+                    }
+                }
+                scriptPath("prueba-checho/Jenkinsfile")
+            }
+        }
+    }
+}
+
