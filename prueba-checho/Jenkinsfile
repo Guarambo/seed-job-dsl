@@ -12,6 +12,14 @@ pipeline {
         stage('Obtain layer version') {
             steps {
                 script {
+                    withCredentials([
+                  [
+                      $class: 'AmazonWebServicesCredentialsBinding',
+                      credentialsId: "${AWS_CREDENTIALS_ID}",
+                      accessKeyVariable: "${AWS_ACCESS_KEY_ID}",
+                      secretKeyVariable: "${AWS_SECRET_ACCESS_KEY}"
+                  ]
+                ])
                     def ARN = sh "aws lambda list-layer-versions --layer-name ${LAYER_NAME} --region ${AWS_DEFAULT_REGION} --query 'LayerVersions[0].LayerVersionArn'"
                     ARN = ${ARN}.trim().replaceAll('"', '')
                     if (${ARN} == null) {
